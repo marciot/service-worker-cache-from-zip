@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>WebApp Installer</title>
+        <script>
+            async function onLoad() {
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.oncontrollerchange = () => window.location.reload();
+
+                    try {
+                        let reg = await navigator.serviceWorker.register('worker.js');
+                        document.body.innerText = "Installing...";
+                    } catch(error) {
+                        document.body.innerText = "Failed to install";
+                        console.error(error);
+                    }
+                } else {
+                    document.body.innerText = "Service workers not supported";
+                }
+            }
+        </script>
+    </head>
+    <body onLoad="onLoad()">
+        Starting up...
+    </body>
+</html>
